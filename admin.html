@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="section">
+    <div class="container">
+        <h2>Админ-панель</h2>
+        <h3>Объявления</h3>
+        <form method="POST" action="/admin/add">
+            <div class="mb-3">
+                <label for="title" class="form-label">Название</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Цена</label>
+                <input type="number" class="form-control" id="price" name="price" required>
+            </div>
+            <div class="mb-3">
+                <label for="area" class="form-label">Площадь</label>
+                <input type="number" class="form-control" id="area" name="area" required>
+            </div>
+            <div class="mb-3">
+                <label for="type" class="form-label">Тип</label>
+                <input type="text" class="form-control" id="type" name="type" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Описание</label>
+                <textarea class="form-control" id="description" name="description" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="image_url" class="form-label">URL изображения</label>
+                <input type="text" class="form-control" id="image_url" name="image_url" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </form>
+        <h3>Список объявлений</h3>
+        <ul>
+            {% for prop in properties %}
+                <li>{{ prop[1] }} - ${{ prop[2] }} <form method="POST" action="/admin/delete/{{ prop[0] }}" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                </form></li>
+            {% endfor %}
+        </ul>
+        <h3>История</h3>
+        <ul>
+            {% for entry in history %}
+                <li>{{ entry[1] }} - {{ entry[4] }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Пользователи</h3>
+        <ul>
+            {% for user in users %}
+                <li>{{ user[1] }} ({{ user[2] }}) - Admin: {{ user[4] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

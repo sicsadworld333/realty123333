@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">Сдать в аренду</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Заголовок</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Описание</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Цена (руб./месяц)</label>
+                            <input type="number" class="form-control" id="price" name="price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Местоположение</label>
+                            <input type="text" class="form-control" id="location" name="location" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="property_type" class="form-label">Тип недвижимости</label>
+                            <select class="form-select" id="property_type" name="property_type" required>
+                                <option value="flat">Квартира</option>
+                                <option value="house">Дом</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="area" class="form-label">Площадь (м²)</label>
+                            <input type="number" class="form-control" id="area" name="area" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rooms" class="form-label">Количество комнат</label>
+                            <input type="number" class="form-control" id="rooms" name="rooms" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="photo" class="form-label">Фото</label>
+                            <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Добавить объявление</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

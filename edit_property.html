@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать объявление</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Редактировать объявление</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Название</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ property[2] }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Описание</label>
+                <textarea class="form-control" id="description" name="description" rows="3">{{ property[3] }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Цена (BYN)</label>
+                <input type="number" class="form-control" id="price" name="price" value="{{ property[4] }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Местоположение</label>
+                <input type="text" class="form-control" id="location" name="location" value="{{ property[5] }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="district" class="form-label">Район</label>
+                <input type="text" class="form-control" id="district" name="district" value="{{ property[6] }}">
+            </div>
+            <div class="mb-3">
+                <label for="property_type" class="form-label">Тип недвижимости</label>
+                <select class="form-control" id="property_type" name="property_type" required>
+                    <option value="apartment" {% if property[9] == 'apartment' %}selected{% endif %}>Квартира</option>
+                    <option value="house" {% if property[9] == 'house' %}selected{% endif %}>Дом</option>
+                    <option value="land" {% if property[9] == 'land' %}selected{% endif %}>Участок</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="area" class="form-label">Площадь (м²)</label>
+                <input type="number" class="form-control" id="area" name="area" value="{{ property[11] }}">
+            </div>
+            <div class="mb-3">
+                <label for="rooms" class="form-label">Количество комнат</label>
+                <input type="number" class="form-control" id="rooms" name="rooms" value="{{ property[12] }}">
+            </div>
+            <div class="mb-3">
+                <label for="floor" class="form-label">Этаж</label>
+                <input type="number" class="form-control" id="floor" name="floor" value="{{ property[13] }}">
+            </div>
+            <div class="mb-3">
+                <label for="floors" class="form-label">Всего этажей</label>
+                <input type="number" class="form-control" id="floors" name="floors" value="{{ property[14] }}">
+            </div>
+            <div class="mb-3">
+                <label for="year_built" class="form-label">Год постройки</label>
+                <input type="number" class="form-control" id="year_built" name="year_built" value="{{ property[15] }}">
+            </div>
+            <div class="mb-3">
+                <label for="land_area" class="form-label">Площадь участка (сотки)</label>
+                <input type="number" class="form-control" id="land_area" name="land_area" value="{{ property[16] }}">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="has_basement" name="has_basement" {% if property[17] %}checked{% endif %}>
+                <label class="form-check-label" for="has_basement">Есть подвал</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="has_garage" name="has_garage" {% if property[18] %}checked{% endif %}>
+                <label class="form-check-label" for="has_garage">Есть гараж</label>
+            </div>
+            <div class="mb-3">
+                <label for="wall_material" class="form-label">Материал стен</label>
+                <input type="text" class="form-control" id="wall_material" name="wall_material" value="{{ property[19] }}">
+            </div>
+            <div class="mb-3">
+                <label for="readiness" class="form-label">Готовность (%)</label>
+                <input type="number" class="form-control" id="readiness" name="readiness" value="{{ property[20] }}">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="has_electricity" name="has_electricity" {% if property[21] %}checked{% endif %}>
+                <label class="form-check-label" for="has_electricity">Есть электричество</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="has_gas" name="has_gas" {% if property[22] %}checked{% endif %}>
+                <label class="form-check-label" for="has_gas">Есть газ</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="has_water" name="has_water" {% if property[23] %}checked{% endif %}>
+                <label class="form-check-label" for="has_water">Есть вода</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="has_sewerage" name="has_sewerage" {% if property[24] %}checked{% endif %}>
+                <label class="form-check-label" for="has_sewerage">Есть канализация</label>
+            </div>
+            <div class="mb-3">
+                <label for="photo" class="form-label">Фото (текущее: {{ property[24] }})</label>
+                <input type="file" class="form-control" id="photo" name="photo">
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+            <a href="{{ url_for('account', tab='dashboard') }}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

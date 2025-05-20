@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="text-center text-primary mb-4">Оценка недвижимости</h2>
+                    <p>Мы предоставляем профессиональную оценку вашей недвижимости. Процесс прост:</p>
+                    <ol>
+                        <li>Оставьте заявку с базовыми параметрами вашего жилья.</li>
+                        <li>Наш специалист свяжется с вами для уточнения деталей.</li>
+                        <li>Мы проведём оценку и предоставим отчёт.</li>
+                    </ol>
+                    <p>Стоимость услуги зависит от типа и сложности объекта. Свяжитесь с нами для точного расчёта!</p>
+                    <form method="POST" id="evaluation_form">
+                        <div class="mb-3">
+                            <label for="property_type" class="form-label">Тип недвижимости</label>
+                            <select class="form-select" id="property_type" name="property_type" required>
+                                <option value="flat">Квартира</option>
+                                <option value="house">Дом</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="area" class="form-label">Площадь (м²)</label>
+                            <input type="number" class="form-control" id="area" name="area" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Местоположение</label>
+                            <input type="text" class="form-control" id="location" name="location" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact_info" class="form-label">Контактные данные (телефон/email)</label>
+                            <input type="text" class="form-control" id="contact_info" name="contact_info" required>
+                        </div>
+                        {% if session.get('user_id') %}
+                            <button type="submit" class="btn btn-primary w-100" id="submit_evaluation">ОК</button>
+                        {% else %}
+                            <p class="text-muted">Пожалуйста, <a href="{{ url_for('login') }}" class="text-primary">войдите</a>, чтобы отправить заявку.</p>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('evaluation_form').addEventListener('submit', function(e) {
+        if (!{{ session.get('user_id')|default('false') }}) {
+            e.preventDefault();
+            alert('Пожалуйста, войдите в аккаунт, чтобы отправить заявку.');
+        }
+    });
+</script>
+{% endblock %}

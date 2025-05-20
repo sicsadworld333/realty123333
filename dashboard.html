@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="{{ url_for('dashboard') }}" class="list-group-item list-group-item-action active">Мои объявления</a>
+                <a href="{{ url_for('favorites') }}" class="list-group-item list-group-item-action">Избранное</a>
+                <a href="{{ url_for('change_password') }}" class="list-group-item list-group-item-action">Смена пароля</a>
+                <a href="{{ url_for('delete_account') }}" class="list-group-item list-group-item-action text-danger">Удалить аккаунт</a>
+                <a href="{{ url_for('logout') }}" class="list-group-item list-group-item-action">Выйти</a>
+                <a href="{{ url_for('messenger') }}" class="list-group-item list-group-item-action">Сообщения</a>
+                <a href="{{ url_for('profile') }}" class="list-group-item list-group-item-action">Профиль</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <h1 class="text-primary mb-4">Мои объявления</h1>
+            {% if properties %}
+                <div class="row">
+                    {% for prop in properties %}
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow-sm">
+                                {% if prop[25] %}
+                                    <img src="{{ url_for('static', filename=prop[25]) }}" class="card-img-top" alt="Фото объекта" style="height: 200px; object-fit: cover;">
+                                {% else %}
+                                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Фото объекта" style="height: 200px; object-fit: cover;">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ prop[2] }}</h5>
+                                    <p class="card-text">{{ '{:,.2f}'.format(prop[4]).replace(',', ' ') }} руб.</p>
+                                    <p class="card-text text-muted">{{ prop[5] }}</p>
+                                    <a href="{{ url_for('property_detail', property_id=prop[0]) }}" class="btn btn-primary btn-sm">Подробнее</a>
+                                    <a href="{{ url_for('delete_property', property_id=prop[0]) }}" class="btn btn-danger btn-sm">Удалить</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-muted">У вас пока нет объявлений.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

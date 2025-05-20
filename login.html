@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="section">
+    <div class="container">
+        <h2>Вход</h2>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Войти</button>
+            <a href="/forgot" class="ms-3">Забыли пароль?</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
